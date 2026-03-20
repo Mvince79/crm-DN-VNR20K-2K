@@ -25,3 +25,4 @@ public interface ViettelServiceRepository extends JpaRepository<ViettelService, 
         @Query("SELECT COUNT(s) FROM ViettelService s WHERE s.isActive = true")
         long countActiveServices();
 }
+

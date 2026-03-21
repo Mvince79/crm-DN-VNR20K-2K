@@ -1,7 +1,9 @@
 package vn.viettel.khdn.crm_DN_VNR20K_2K.service;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import vn.viettel.khdn.crm_DN_VNR20K_2K.model.dto.DashboardDTO;
+import vn.viettel.khdn.crm_DN_VNR20K_2K.model.dto.EmployeeInteractionDTO;
 import vn.viettel.khdn.crm_DN_VNR20K_2K.repository.EnterpriseRepository;
 import vn.viettel.khdn.crm_DN_VNR20K_2K.repository.InteractionRepository;
 import vn.viettel.khdn.crm_DN_VNR20K_2K.repository.UserRepository;
@@ -30,7 +32,16 @@ public class DashboardService {
         dto.setTotalInteractedEnterprises(enterpriseRepo.countInteractedEnterprises());
         dto.setTotalServices(serviceRepo.count());
         dto.setActiveServices(serviceRepo.countActiveServices());
+        List<EmployeeInteractionDTO> employeeStats =
+                interactionRepo.countInteractionsByEmployeeThisMonth();
 
+        dto.setEmployeeStats(employeeStats);
+
+        dto.setTotalActiveEmployees(employeeStats.size());
         return dto;
+    }
+
+    public List<EmployeeInteractionDTO> getEmployeeStatistics() {
+        return interactionRepo.countInteractionsByEmployee();
     }
 }

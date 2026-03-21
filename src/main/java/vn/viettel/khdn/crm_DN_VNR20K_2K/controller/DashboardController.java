@@ -1,11 +1,13 @@
 package vn.viettel.khdn.crm_DN_VNR20K_2K.controller;
 
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.viettel.khdn.crm_DN_VNR20K_2K.model.dto.DashboardDTO;
+import vn.viettel.khdn.crm_DN_VNR20K_2K.model.dto.EmployeeInteractionDTO;
 import vn.viettel.khdn.crm_DN_VNR20K_2K.service.DashboardService;
 
 @RestController
@@ -22,4 +24,11 @@ public class DashboardController {
     public ResponseEntity<DashboardDTO> getDashboard() {
         return ResponseEntity.ok(dashboardService.getDashboard());
     }
+
+    @GetMapping("/employee-stats")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<EmployeeInteractionDTO>> getEmployeeStats() {
+        return ResponseEntity.ok(dashboardService.getEmployeeStatistics());
+    }
 }
+

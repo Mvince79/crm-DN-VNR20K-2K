@@ -24,7 +24,7 @@ public class DashboardService {
         this.interactionRepo = interactionRepo;
     }
 
-    public DashboardDTO getDashboard() {
+    public DashboardDTO getDashboard(int month, int year) {
         DashboardDTO dto = new DashboardDTO();
 
         dto.setTotalUsers(userRepo.count());
@@ -32,11 +32,9 @@ public class DashboardService {
         dto.setTotalInteractedEnterprises(enterpriseRepo.countInteractedEnterprises());
         dto.setTotalServices(serviceRepo.count());
         dto.setActiveServices(serviceRepo.countActiveServices());
-        List<EmployeeInteractionDTO> employeeStats =
-                interactionRepo.countInteractionsByEmployeeThisMonth();
+        List<EmployeeInteractionDTO> employeeStats = interactionRepo.countInteractionsByMonthAndYear(month, year);
 
         dto.setEmployeeStats(employeeStats);
-
         dto.setTotalActiveEmployees(employeeStats.size());
         return dto;
     }

@@ -36,4 +36,11 @@ public interface InteractionRepository extends JpaRepository<Interaction, Long> 
         @Query("SELECT new vn.viettel.khdn.crm_DN_VNR20K_2K.model.dto.EmployeeInteractionDTO(c.fullName, COUNT(i)) "
                         + "FROM Interaction i JOIN i.consultant c " + "GROUP BY c.id, c.fullName")
         List<EmployeeInteractionDTO> countInteractionsByEmployee();
+
+        @Query("SELECT new vn.viettel.khdn.crm_DN_VNR20K_2K.model.dto.EmployeeInteractionDTO(c.fullName, COUNT(i)) "
+                        + "FROM Interaction i JOIN i.consultant c "
+                        + "WHERE MONTH(i.createdAt) = :month " + "AND YEAR(i.createdAt) = :year "
+                        + "GROUP BY c.id, c.fullName")
+        List<EmployeeInteractionDTO> countInteractionsByMonthAndYear(@Param("month") int month,
+                        @Param("year") int year);
 }

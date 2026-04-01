@@ -34,10 +34,6 @@ public class DashboardController {
         return ResponseEntity.ok(dashboardService.getEmployeeStatistics());
     }
 
-    @GetMapping("/employee-stats")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<EmployeeInteractionDTO>> getEmployeeStats() {
-        return ResponseEntity.ok(dashboardService.getEmployeeStatistics());
-    }
+   
 }
 
